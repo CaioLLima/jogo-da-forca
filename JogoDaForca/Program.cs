@@ -13,11 +13,24 @@
                 {
                     letrasEncontradas[i] = '_';
                 }
+
+                string dicaDaPalavra = String.Join(" ", letrasEncontradas);
                 Console.WriteLine("Jogo da Forca.");
-                Console.WriteLine($"A palavra secreta é: {palavraSecreta}.");
+                Console.WriteLine($"A palavra secreta é: {dicaDaPalavra}.");
 
                 Console.Write("Digite uma letra: ");
                 char chute = Console.ReadLine()[0];
+
+                for (int i = 0; i < palavraSecreta.Length; i++)
+                {
+                    if (palavraSecreta[i] == chute)
+                    {
+                        letrasEncontradas[i] = chute;
+                    }
+                    Console.WriteLine(letrasEncontradas[i]);
+                }
+
+               
             }
             
         }

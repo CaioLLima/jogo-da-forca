@@ -38,22 +38,21 @@
 
             while (true)
             {
-                Random geradorDeNumeros = new Random();
-                int indicePalavraEscolhida = geradorDeNumeros.Next(frutas.Length);
-                string palavraSecreta = frutas[indicePalavraEscolhida];
-                char[] letrasEncontradas = new char[palavraSecreta.Length];
-
-                for (int i = 0; i < letrasEncontradas.Length; i++)
-                {
-                    letrasEncontradas[i] = '_';
-                }
-
-
-
+                int[] histChutes = new int[8];
+                int contChutes = 0;
                 bool acertou = false;
                 bool enforcou = false;
                 int qntErros = 0;
 
+                Random geradorDeNumeros = new Random();
+                int indicePalavraEscolhida = geradorDeNumeros.Next(frutas.Length);
+                string palavraSecreta = frutas[indicePalavraEscolhida];
+                char[] letrasEncontradas = new char[palavraSecreta.Length];
+                char[] letrasUtilizadas = new char[10];
+                for (int i = 0; i < letrasEncontradas.Length; i++)
+                {
+                    letrasEncontradas[i] = '_';
+                }
                 do
                 {
                     string dicaDaPalavra = String.Join("", letrasEncontradas);
@@ -139,8 +138,23 @@
 
                     Console.Write("\nDigite uma letra: ");
                     char chute = Console.ReadLine()[0];
-
                     bool letraFoiEncontrada = false;
+
+                    for(int i = 0; i < 10; i++)
+                    {
+                        if (chute == letrasUtilizadas[i])
+                        {
+                            Console.WriteLine("Você já utilizou essa letra, tente outra.");
+                            Console.ReadLine();
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nVocê não utilizou essa letra ainda");
+                            letrasUtilizadas[i] = chute;
+                            break;
+                        }
+                    }
 
                     for (int i = 0; i < palavraSecreta.Length; i++)
                     {
@@ -150,17 +164,14 @@
                             letrasEncontradas[i] = letraAtual;
                             letraFoiEncontrada = true;
                         }
-
-
-                        dicaDaPalavra = String.Join("", letrasEncontradas);
-                        //Console.Write(letrasEncontradas[i]);
+                        dicaDaPalavra = String.Join("", letrasEncontradas);  
                     }
 
                     if (letraFoiEncontrada == false)
                     {
-                        qntErros++;
-                        Console.WriteLine($"\nVocê errou pela {qntErros}ª vez.");
+                        qntErros++;         
                     }
+
                     acertou = dicaDaPalavra == palavraSecreta;
                     enforcou = qntErros == 5;
 
@@ -188,12 +199,6 @@
                 while (acertou == false && enforcou == false);
 
                 Console.ReadLine();
-
-
-
-
-
-
             }
 
         }

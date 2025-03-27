@@ -140,19 +140,25 @@
                     char chute = Console.ReadLine()[0];
                     bool letraFoiEncontrada = false;
 
-                    for(int i = 0; i < 10; i++)
+
+
+                    for (int j = 0; j < 10; j++)
                     {
-                        if (chute == letrasUtilizadas[i])
+                        if (letrasUtilizadas[j] == chute)
                         {
                             Console.WriteLine("Você já utilizou essa letra, tente outra.");
                             Console.ReadLine();
-                            break;
+                            return; 
                         }
-                        else
+                    }
+
+                    
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (letrasUtilizadas[j] == '\0') 
                         {
-                            Console.WriteLine("\nVocê não utilizou essa letra ainda");
-                            letrasUtilizadas[i] = chute;
-                            break;
+                            letrasUtilizadas[j] = chute;
+                            break; 
                         }
                     }
 

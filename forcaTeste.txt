@@ -1,0 +1,122 @@
+namespace JogoDaForca
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] frutas = {
+                "ABACATE",
+                "ABACAXI",
+                "ACEROLA",
+                "ACAI",
+                "ARACA",
+                "BACABA",
+                "BACURI",
+                "BANANA",
+                "CAJA",
+                "CAJU",
+                "CARAMBOLA",
+                "CUPUACU",
+                "GRAVIOLA",
+                "GOIABA",
+                "JABUTICABA",
+                "JENIPAPO",
+                "MACA",
+                "MANGABA",
+                "MANGA",
+                "MARACUJA",
+                "MURICI",
+                "PEQUI",
+                "PITANGA",
+                "PITAYA",
+                "SAPOTI",
+                "TANGERINA",
+                "UMBU",
+                "UVA",
+                "UVAIA"
+            };
+            string[] animais = {
+            "Leão", "Tigre", "Elefante", "Gato", "Cachorro", "Panda", "Urso", "Cobra", "Cavalo", "Tubarão",
+            "Águia", "Lobo", "Jacaré", "Golfinho", "Canguru", "Hipopótamo", "Rinoceronte", "Girafa", "Zebra", "Raposa",
+            "Galo", "Coruja", "Macaco", "Arraia", "Bicho-preguiça", "Peixe-palhaço", "Pinguim", "Tatu"
+        };
+            string[] paises = {
+            "Brasil", "Argentina", "Estados Unidos", "Canadá", "México", "França", "Alemanha", "Itália", "Espanha", "Portugal",
+            "Japão", "China", "Índia", "Rússia", "Austrália", "Nova Zelândia", "Inglaterra", "Escócia", "Irlanda", "África do Sul",
+            "Egito", "Turquia", "Coreia do Sul", "Indonésia", "Filipinas", "Chile", "Colômbia", "Peru"
+        };
+            bool ganhou = false;
+            bool perdeu = false;
+            int numTentativas = 5;
+            
+            Random aleatorio = new Random();
+            int indicePalavraAleatoria = aleatorio.Next(frutas.Length);
+            string palavraSecreta = frutas[indicePalavraAleatoria];
+            char[] letrasEncontradas = new char[palavraSecreta.Length];
+            string letrasUtilizadas = "";
+            char[] letrasUtilizada = new char[20];
+
+            Console.WriteLine("Jogo da Forca");
+            for (int i = 0; i < letrasEncontradas.Length; i++)
+            {
+                letrasEncontradas[i] = '_';
+            }
+            Console.WriteLine(letrasEncontradas);
+
+
+            while (ganhou == false && perdeu == false) 
+            {
+                bool letraEncontrada = false;
+                Console.Write("\nDigite uma letra: ");
+                char chuteJogador = Console.ReadLine()[0];
+
+
+                letrasUtilizadas = letrasUtilizadas + string.Join("",chuteJogador + ",");
+                Console.WriteLine(letrasUtilizadas);
+
+                for (int i = 0; i < letrasEncontradas.Length; i++) 
+                {
+                    char letraAtual = palavraSecreta[i]; 
+                    if (chuteJogador == letraAtual)
+                    {
+                        letrasEncontradas[i] = chuteJogador;// Caso encontre uma letra correta da palavra ele substitui o underline pela letra
+                        letraEncontrada = true;
+                    }
+                    
+                }
+
+                if (letraEncontrada == false)
+                {
+                    numTentativas--;
+                    Console.WriteLine($"\nErrou o chute, você possui {numTentativas} tentativas. ");
+                }
+
+                for (int i = 0; i < letrasEncontradas.Length; i++) // apenas imprime as letras descobertas
+                {
+                    Console.Write(letrasEncontradas[i]);
+
+                }
+                
+                string palavra = new string(letrasEncontradas); // armazena as letras corretas em uma string completa
+
+                if (palavra == palavraSecreta) // verifica se as letras descobertas está igual a palavra secreta inteira
+                {
+                    Console.WriteLine("\nParabéns você ganhou a palavra secreta era: " + palavraSecreta);
+                    ganhou= true;
+                    Console.Read();
+                }
+               
+                if (numTentativas == 0)
+                {
+                    Console.WriteLine("\nInfelizmente você perdeu, a palavra secreta era: " + palavraSecreta); 
+                    perdeu = true;
+                    Console.Read();
+                }
+                
+
+            }
+
+            
+        }
+    }
+}
